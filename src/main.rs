@@ -10,7 +10,7 @@ pub type Result<T, E = anyhow::Error> = std::result::Result<T, E>;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    // Tracing
+    // Tracing!
     register_tracing();
 
     // Now trace the started message
