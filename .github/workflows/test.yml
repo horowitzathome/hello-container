@@ -16,3 +16,5 @@ jobs:
         run: cargo check --verbose
       - name: "Test code"
         run: cargo test --verbose  
+      - name: "Check if well formatted"
+        run: cargo fmt --all -- --check  
