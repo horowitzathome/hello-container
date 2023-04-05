@@ -1,8 +1,8 @@
-use axum::{Router, routing};
-use axum_prometheus::{PrometheusMetricLayer, metrics_exporter_prometheus::PrometheusHandle};
+use axum::{routing, Router};
+use axum_prometheus::{metrics_exporter_prometheus::PrometheusHandle, PrometheusMetricLayer};
+use dotenvy::dotenv;
 use tower_http::cors::{Any, CorsLayer};
 use tracing::*;
-use dotenvy::dotenv;
 
 mod listen;
 
@@ -22,7 +22,7 @@ async fn main() -> Result<()> {
     // Do DB stuff (but does nothing at the moment I guess)
     dotenv().ok();
     //db_infra_pool::init();
-    
+
     // Do Route stuff
     let router = create_router_with_prometheus(prometheus_layer, metric_handle);
 
@@ -60,9 +60,15 @@ fn define_metrics() -> (PrometheusMetricLayer<'static>, PrometheusHandle) {
     axum_prometheus::PrometheusMetricLayer::pair()
 }
 
-fn create_router_with_prometheus(prometheus_layer: PrometheusMetricLayer<'static>, metric_handle: PrometheusHandle) -> Router {
+fn create_router_with_prometheus(
+    prometheus_layer: PrometheusMetricLayer<'static>,
+    metric_handle: PrometheusHandle,
+) -> Router {
     create_router()
-        .route("/actuator/prometheus", routing::get(|| async move { metric_handle.render() }))
+        .route(
+            "/actuator/prometheus",
+            routing::get(|| async move { metric_handle.render() }),
+        )
         .layer(prometheus_layer)
 }
 
