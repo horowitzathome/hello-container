@@ -11,7 +11,7 @@ pub type Result<T, E = anyhow::Error> = std::result::Result<T, E>;
 #[tokio::main]
 async fn main() -> Result<()> {
     // Tracing
-    register_tracing();
+    register_tracing( );
 
     // Now trace the started message
     info!("Started Appointment Scheduler");
