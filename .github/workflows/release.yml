@@ -110,5 +110,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: horowitzathome/hello-container:latest,horowitzathome/hello-container:v${{ needs.get-tag.outputs.pkg-version }}
+          tags: horowitzathome/hello-container:latest-amd64,horowitzathome/hello-container:v${{ needs.get-tag.outputs.pkg-version }}-amd64
           labels: ${{ steps.meta.outputs.labels }}
