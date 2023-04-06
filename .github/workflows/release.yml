@@ -56,8 +56,10 @@ jobs:
         include:
           - target: "x86_64-unknown-linux-gnu"
             os: "ubuntu-latest"
-          - target: aarch64-unknown-linux-gnu
-            os: ubuntu-latest
+          # - target: "x86_64-unknown-linux-musl"
+          #  os: "ubuntu-latest"     
+          # - target: aarch64-unknown-linux-gnu
+          #  os: ubuntu-latest
           - target: aarch64-apple-darwin
             os: macos-latest  
     runs-on: ${{ matrix.os }}
@@ -76,8 +78,8 @@ jobs:
 
   push-to-registry:
     name: "Push Docker image to Docker Hub"
-    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    if: ${{ false }}  # disable for now
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ false }}  # disable for now
     needs:
       - "get-tag"
       - "upload-assets"
@@ -96,12 +98,17 @@ jobs:
         id: "meta"
         uses: "docker/metadata-action@v4"
         with:
-          images: "bwks/shazam"
+          images: "horowitzathome/hello-container"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+            buildkitd-flags: --debug    
       
       - name: "Build and push Docker image"
         uses: "docker/build-push-action@v3"
         with:
           context: .
           push: true
-          tags: bwks/shazam:latest,bwks/shazam:v${{ needs.get-tag.outputs.pkg-version }}
+          tags: horowitzathome/hello-container:latest,horowitzathome/hello-container:v${{ needs.get-tag.outputs.pkg-version }}
           labels: ${{ steps.meta.outputs.labels }}
