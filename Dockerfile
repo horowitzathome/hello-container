@@ -13,9 +13,9 @@ RUN curl -sLO https://github.com/horowitzathome/hello-container/releases/latest/
 FROM gcr.io/distroless/static:nonroot
 #FROM arm64v8/ubuntu:latest
 
-WORKDIR /opt
+WORKDIR /hello-container
 
 # Copy our build
-COPY --from=builder /opt/hello-container /opt/hello-container
+COPY --from=builder /opt/hello-container /hello-container/hello-container
 EXPOSE 8081
-CMD ["/opt/hello-container"]
+CMD ["/hello-container/hello-container"]
