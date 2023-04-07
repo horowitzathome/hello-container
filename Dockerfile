@@ -10,8 +10,10 @@ RUN curl -sLO https://github.com/horowitzathome/hello-container/releases/latest/
 
 ############# Now create the image ##############
 
-FROM gcr.io/distroless/static:nonroot
-#FROM arm64v8/ubuntu:latest
+FROM gcr.io/distroless/base:debug
+# FROM gcr.io/distroless/static:nonroot
+# ADD --chown bash
+# FROM arm64v8/ubuntu:latest
 
 WORKDIR /hello-container
 
