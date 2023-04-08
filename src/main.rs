@@ -29,7 +29,7 @@ async fn main() -> Result<()> {
     // Start Web Server at port 8080
     use tokio::signal::unix as usig;
     let mut shutdown = usig::signal(usig::SignalKind::terminate())?;
-    let server = axum::Server::bind(&std::net::SocketAddr::from(([0, 0, 0, 0], 8081)))
+    let server = axum::Server::bind(&std::net::SocketAddr::from(([0, 0, 0, 0], 8080)))
         .serve(router.into_make_service())
         .with_graceful_shutdown(async move {
             shutdown.recv().await;
