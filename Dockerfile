@@ -27,5 +27,5 @@ WORKDIR /hello-container
 
 # Copy our build
 COPY --from=builder /opt/hello-container /hello-container/hello-container
-EXPOSE 8081
+EXPOSE 8080
 CMD ["/hello-container/hello-container"]
