@@ -16,7 +16,7 @@ spec:
       - name: hello-container-app
         # Replace $LOCATION with your Artifact Registry location (e.g., us-west1).
         # Replace $GCLOUD_PROJECT with your project ID.
-        image: horowitzathome/hello-container:v0.1.12-amd64
+        image: horowitzathome/hello-container:v0.1.13-amd64
         # This app listens on port 8080 for web traffic by default.
         ports:
         - containerPort: 8080
