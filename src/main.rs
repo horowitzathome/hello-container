@@ -64,7 +64,6 @@ fn create_router_with_prometheus(
     prometheus_layer: PrometheusMetricLayer<'static>,
     metric_handle: PrometheusHandle,
 ) -> Router {
-
     let routers = create_router()
         .route(
             "/actuator/prometheus",
