@@ -64,12 +64,14 @@ fn create_router_with_prometheus(
     prometheus_layer: PrometheusMetricLayer<'static>,
     metric_handle: PrometheusHandle,
 ) -> Router {
-    create_router()
+    let routers = create_router()
         .route(
             "/actuator/prometheus",
             routing::get(|| async move { metric_handle.render() }),
         )
-        .layer(prometheus_layer)
+        .layer(prometheus_layer);
+
+    Router::new().nest("/hello", routers)
 }
 
 fn create_router() -> Router {
